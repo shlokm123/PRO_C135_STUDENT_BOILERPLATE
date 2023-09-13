@@ -32,7 +32,27 @@ $(function () {
         });
     });
     //Write the code here for AJAX call
-
+$("#save_button").click(function (){
+    let save_data = {
+        "date": display_date,
+        "text": $("#text").val(),
+        "emotion": predicted_emotion
+    }
+    $.ajax({
+        type : 'POST',
+        url : "/save-entry",
+        data : JSON.stringify(save_data),
+        dataType: "json",
+        contentType: 'application/json',
+        success : function(result){
+            alert("Your Entry Has Been Saved Succesfully :)")
+            window.location.reload()
+        },
+        error: function (result) {
+            alert(result.responseJSON.message)
+        }
+    })
+})
 
 })
 
